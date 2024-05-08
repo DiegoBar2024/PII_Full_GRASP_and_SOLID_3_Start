@@ -26,9 +26,24 @@ namespace Full_GRASP_And_SOLID
             recipe.AddStep(new Step(GetProduct("Café"), 100, GetEquipment("Cafetera"), 120));
             recipe.AddStep(new Step(GetProduct("Leche"), 200, GetEquipment("Hervidor"), 60));
 
-            AllInOnePrinter printer = new AllInOnePrinter();
-            printer.PrintRecipe(recipe, Destination.Console);
-            printer.PrintRecipe(recipe, Destination.File);
+            // AllInOnePrinter printer = new AllInOnePrinter();
+            // printer.PrintRecipe(recipe, Destination.Console);
+            // printer.PrintRecipe(recipe, Destination.File);
+
+            // Creo una variable printer del tipo IPrinter
+            IPrinter printer;
+
+            // Asigno la variable printer del tipo IPrinter a una instancia de la clase ConsolePrinter
+            printer = new ConsolePrinter();
+
+            // Uso el metodo PrintTicket implementado en ConsolePrinter para hacer la impresión en consola
+            printer.PrintRecipe(recipe);
+
+            // Asigno la variable printer del tipo IPrinter a una instancia de la clase FilePrinter
+            printer = new FilePrinter();
+
+            // Uso el metodo PrintTicket implementado en FilePrinter para hacer la impresión en un archivo de texto
+            printer.PrintRecipe(recipe);
         }
 
         private static void PopulateCatalogs()
@@ -74,3 +89,10 @@ namespace Full_GRASP_And_SOLID
         }
     }
 }
+
+/*
+Para asignar las responsabilidades de la impresión de la receta en consola o en un archivo de texto, se usa el patron Polimorfismo.
+Se obtiene una operación polimórfica PrintRecipe definida (pero no implementada) en la interfaz IPrinter
+Dicha operación tiene dos implementaciones diferentes en las clases ConsolePrinter y FilePrinter según el destino de la impresión de la receta
+Al tener un mismo nombre y dos comportamientos diferentes se justifica el hecho de que ésta es una operación polimórfica
+*/
